@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback} from 'react';
 import { Box, Flex, Heading, Text, Image } from '@chakra-ui/react';
 import MainLayout from '../../components/MainLayout';
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
@@ -19,9 +19,31 @@ const Photos = () => {
         error
     } = usePhotoSearch(tag, pageNumber, 20);
 
+
+
+    //Pagination
+    const observer = useRef();
+    const lastPhotoElementRef = useCallback(node => {
+        if(loading) return;
+        if(observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver(entries => {
+            if(entries[0].isIntersecting && hasMore) {
+                setPageNumber(prevPageNumber => prevPageNumber + 1);
+            }
+        })
+        if(node) observer.current.observe(node);
+
+    }, [loading, hasMore])
+
+
+
+
     useEffect(() => {
         if(tag) {
-            setHeading(tag.split(" ").map(str => str.charAt(0).toUpperCase() + str.slice(1)).join(" "));
+            setHeading(tag.split(" ")
+            .map(str => str.charAt(0)
+            .toUpperCase() + str.slice(1))
+            .join(" "));
         }
     }, [tag])
 
@@ -36,10 +58,19 @@ const Photos = () => {
                             {
                                 photos.length && 
                                 photos.map((img, ind) => (
-                                    <Box key={ind} width="100%" display="block">
-                                        {/* <Image src={img.previewURL} width="100%" height="100%" rounded="lg"/> */}
+
+                                    ind === photos.length - 1 
+                                    ?
+                                    (<Box ref={lastPhotoElementRef} key={ind} width="100%" display="block">
                                         <Image src={img.previewURL} width="100%" height="100%" rounded="lg"/>
                                     </Box>
+                                    )
+                                    :
+                                    (<Box key={ind} width="100%" display="block">
+                                        <Image src={img.previewURL} width="100%" height="100%" rounded="lg"/>
+                                    </Box>
+                                    )
+
                                 ))
                             
                             }
