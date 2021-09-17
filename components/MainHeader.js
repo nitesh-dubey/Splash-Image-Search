@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
     Box,
     Center,
@@ -22,9 +22,14 @@ import {
 } from '@chakra-ui/icons'
 import { MdPhotoCamera as Logo } from "react-icons/md";
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import { useWindowSize } from '../hooks/useWindowSize';
-import { ReactSearchAutocomplete } from 'react-search-autocomplete';
-const AutocompleteSearch = chakra(ReactSearchAutocomplete);
+// import { ReactSearchAutocomplete } from 'react-search-autocomplete';
+import SearchBar from '../components/SearchBar';
+import getAutoCompleteTags from '../utils/getAutocompleteTags';
+
+
+// const AutocompleteSearch = chakra(ReactSearchAutocomplete);
 
 const MenuItem = ({children, isLast, to, isButton ,...rest}) => {
     return (
@@ -62,8 +67,36 @@ const MainHeader = (props) => {
     const showDesktopSearchBar = useBreakpointValue([false, false, true, true]);
     const showLogo = useBreakpointValue([false, false, false, true]);
     const showHomeButton = useBreakpointValue([true, true, false, true]);
-    const windowSize = useWindowSize();
+    //const windowSize = useWindowSize();
 
+    const [autocompleteItems, setAutocompleteItems] = useState([]);
+    const router = useRouter();
+
+
+    const handleOnSearch = async (query) => {
+        try{
+            let tagObjs = await getAutoCompleteTags(query);
+            console.log("tagObjs : \n", tagObjs);
+            let tags = [], ind = 0, queryPresent = false;
+
+            for(let tag of tagObjs) {
+                if(tag.word === query) queryPresent = true;
+                tags.push({
+                    key : ind++,
+                    value : tag.word
+                })
+            }
+            if(query && !queryPresent) tags.unshift({
+                key : ind,
+                value : query,
+            });
+            setAutocompleteItems(tags);
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    const handelOnSelect = (query) => router.push(`/photos/${query}`);
 
 
     return (
@@ -78,7 +111,8 @@ const MainHeader = (props) => {
             mb={[3,3,5,5]}
             borderBottomRadius="md"
             shadow="sm"
-            position="relative"
+            position="sticky"
+            top="0"
             {...props}
         >
             <Flex align="center">
@@ -91,40 +125,19 @@ const MainHeader = (props) => {
                 }
             </Flex>
 
-            {showDesktopSearchBar &&
-                <Box mx={2} width="41%">
-                    <AutocompleteSearch
+
+            {
+                <Box mx={2} width={["72%", "72%", "41%", "41%"]}>
+                    <SearchBar
                         placeholder="Search Images..." 
-                        items={[
-                            {id : 0, name : "Nature"},
-                            {id : 1, name : "Dog"},
-                            {id : 2, name : "sunset"}
-                        ]}
-                        onSearch={(string, res) => {}}
-                        onHover={(res) => {}}
-                        onSelect={() => {}}
-                        formatResult={(item)=> <p>{item}</p>}
-                        autoFocus
+                        inputDebounce={400}
+                        items={autocompleteItems}
+                        onSearch={handleOnSearch}
+                        onSelect={handelOnSelect}
                     />
                 </Box>
             }
-            {!showDesktopSearchBar &&
-                <Box mx={2} w="72%">
-                    <AutocompleteSearch
-                        placeholder="Search Images..." 
-                        items={[
-                            {id : 0, name : "Nature"},
-                            {id : 1, name : "Dog"},
-                            {id : 2, name : "sunset"}
-                        ]}
-                        onSearch={(string, res) => {}}
-                        onHover={(res) => {}}
-                        onSelect={() => {}}
-                        formatResult={(item)=> <p>{item}</p>}
-                        autoFocus
-                    />
-                </Box>
-            }
+            
 
             <Box
                 display={{base : "block", md : "none"}}

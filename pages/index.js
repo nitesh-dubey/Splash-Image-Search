@@ -53,8 +53,8 @@ export default function Home() {
               Login and start exploring or Try it as a guest.
             </Heading>
 
-              <NextLink href="/main" passHref>
-                <Link to="/main" _hover={{textDecoration : "none"}}>
+              <NextLink href="/photos" passHref>
+                <Link to="/photos" _hover={{textDecoration : "none"}}>
                   <Button
                     colorScheme="yellow"
                     size="md"

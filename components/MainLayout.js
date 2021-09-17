@@ -36,7 +36,7 @@ const MainLayout = ({children, ...restProps}) => {
                     href="https://github.com/nitesh-dubey"
                     target="_blank"
                     rel="noopener noreferrer"
-                    passhref={true}
+                    passhref="true"
                 >
                     <Box d="flex" alignItems="baseline">
                         Visit My Github{' '}
