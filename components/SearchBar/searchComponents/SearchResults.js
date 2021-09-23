@@ -38,4 +38,7 @@ const SearchResults = React.memo((props) => {
     );
 });
 
+
+SearchResults.displayName = 'SearchResults';
+
 export default SearchResults;

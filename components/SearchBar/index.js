@@ -69,11 +69,10 @@ const SearchBar = ({placeholder, inputDebounce, items, onSearch, onSelect}) => {
                 rounded="full"
                 borderColor="gray.300"
             >
-                <InputLeftElement
-                    pointerEvents="none"
-                    children={<SearchIcon color="gray.300" />}
-                    pl="2"
-                />
+                <InputLeftElement pointerEvents="none" pl="2" >
+                    <SearchIcon color="gray.300"/>
+                </InputLeftElement>
+                
                 <Input
                     type="text"
                     placeholder={placeholder}
@@ -89,17 +88,14 @@ const SearchBar = ({placeholder, inputDebounce, items, onSearch, onSelect}) => {
                 
                 {
                     input.length &&
-                    <InputRightElement
-                        children={
-                            <CloseIcon 
-                                h="0.8rem" 
-                                color="gray.300"
-                                _hover={{ cursor : 'pointer'}}
-                                onClick={clearInput}
-                            />
-                        }
-                        pr="2"
-                    />
+                    <InputRightElement pr="2">
+                        <CloseIcon 
+                            h="0.8rem" 
+                            color="gray.300"
+                            _hover={{ cursor : 'pointer'}}
+                            onClick={clearInput}
+                        />
+                    </InputRightElement>
                 }
             </InputGroup>
 

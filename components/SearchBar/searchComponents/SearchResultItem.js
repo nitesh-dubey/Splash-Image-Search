@@ -32,4 +32,7 @@ const SearchResultItem = React.memo((props) => {
         </Box>
     );
 })
+
+SearchResultItem.displayName = 'SearchResultItem';
+
 export default SearchResultItem;
