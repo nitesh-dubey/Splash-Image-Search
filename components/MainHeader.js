@@ -76,7 +76,7 @@ const MainHeader = (props) => {
     const handleOnSearch = async (query) => {
         try{
             let tagObjs = await getAutoCompleteTags(query);
-            console.log("tagObjs : \n", tagObjs);
+            // console.log("tagObjs : \n", tagObjs);
             let tags = [], ind = 0, queryPresent = false;
 
             for(let tag of tagObjs) {

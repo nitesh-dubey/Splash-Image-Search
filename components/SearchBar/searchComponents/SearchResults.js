@@ -7,7 +7,7 @@ import SearchResultItem from './SearchResultItem';
 
 const SearchResults = React.memo((props) => {
     const { resultKeyString, results, onSelectCB, setInput, setShowSearchResult } = props;
-    console.log(props);
+    // console.log(props);
 
     return (
         <VStack

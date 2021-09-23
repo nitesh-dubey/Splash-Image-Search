@@ -19,7 +19,7 @@ const usePhotoSearch = (query, pageNumber, pageSize) => {
                     const res = await axios.get(`/api/searchphotos/${query}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
                     // const res = await axios.get(`/api/searchphotos/demoquery?pageNumber=demoPageNumber&pageSize=demoPageSize`);
                     const data = res.data;
-                    console.log(data);
+                    // console.log(data);
                     setPhotos(prevPhotos => [...prevPhotos, ...data.hits])
                     // setPhotos(prevPhotos => [...prevPhotos, ...data])
                     setHasMore(data.hits.length > 0);

@@ -5,7 +5,7 @@ export default async function searchphotos(req, res) {
     
     // if(pageNumber === undefined || pageSize === undefined || tag === undefined) return;
 
-    console.log("Server's output : ", pageNumber, pageSize, tag);
+    // console.log("Server's output : ", pageNumber, pageSize, tag);
 
     try {
         const url = `https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}&page=${pageNumber}&page_size=${pageSize}&q=${tag}`;

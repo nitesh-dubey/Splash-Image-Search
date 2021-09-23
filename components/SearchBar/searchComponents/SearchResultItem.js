@@ -7,7 +7,7 @@ import { SearchIcon } from '@chakra-ui/icons';
 
 const SearchResultItem = React.memo((props) => {
     const { children, onSelectCB, setInput, setShowSearchResult } = props
-    console.log(children)
+    // console.log(children)
 
     const onClick = () => {
         onSelectCB(children);

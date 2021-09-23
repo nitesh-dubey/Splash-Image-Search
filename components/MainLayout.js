@@ -14,7 +14,7 @@ import MainHeader from './MainHeader';
 
 const MainLayout = ({children, ...restProps}) => {
     return (
-        <Flex direction="column" maxW={{xl : "1400px"}} margin="0 auto" {...restProps}>
+        <Flex direction="column" minH="100vh" maxW={{xl : "1400px"}} margin="0 auto" {...restProps}>
             <Head>
                 <title>Splash | Main</title>
                 <meta name="description" content="An Image Search Engine, where user can search for images based on it's tags" />
