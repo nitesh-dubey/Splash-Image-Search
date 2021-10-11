@@ -27,7 +27,7 @@ const MainLayout = ({children, ...restProps}) => {
 
             <MainHeader />
 
-            <main>
+            <main style={{minHeight : "100vh"}}>
                 {children}
             </main>
 

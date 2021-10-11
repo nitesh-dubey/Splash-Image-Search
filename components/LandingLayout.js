@@ -9,7 +9,7 @@ import { Box } from '@chakra-ui/react';
 
 const LandingLayout = ({children, ...restProps}) => {
     return (
-        <Flex direction="column" maxW={{xl : "1400px"}} m="0 auto" {...restProps}>
+        <Flex direction="column" maxW={{xl : "1500px"}} m="0 auto" {...restProps}>
             <Head>
                 <title>Splash | Landing</title>
                 <meta name="description" content="An Image Search Engine, where user can search for images based on it's tags" />

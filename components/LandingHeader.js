@@ -101,7 +101,7 @@ const LandingHeader = (props) => {
                     justify={["center", "space-between", "flex-end", "flex-end"]}
                     pt={[4, 4, 0, 0]}
                 >
-                    <MenuItem to="https://github.com/nitesh-dubey">Repository</MenuItem>
+                    <MenuItem to="https://github.com/nitesh-dubey/Splash-Image-Search">Repository</MenuItem>
                     <MenuItem to="https://www.linkedin.com/in/niteshdubey300/">Linkedin</MenuItem>
                     <MenuItem to="https://nitesh-dubey.netlify.app/">My&nbsp;Portfolio</MenuItem>
                     <MenuItem isButton>

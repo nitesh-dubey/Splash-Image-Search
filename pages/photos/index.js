@@ -1,7 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { Box, Flex, Heading, Text, Image } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Image, Skeleton, SkeletonText } from '@chakra-ui/react';
 import MainLayout from '../../components/MainLayout';
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
+import ImageWrapper from '../../components/ImageWrapper';
 import axios from 'axios';
 
 import usePhotoSearch from '../../hooks/usePhotoSearch';
@@ -31,7 +32,6 @@ const Photos = () => {
 
     }, [loading, hasMore])
 
-   
 
     return (
         <MainLayout>
@@ -47,19 +47,26 @@ const Photos = () => {
                                     ind === photos.length - 1
                                     ?
                                     (
-                                    <Box ref={lastPhotoElementRef} key={ind} width="100%" display="block">
-                                        <Image src={img.previewURL} width="100%" height="100%" rounded="lg"/>
-                                    </Box>
+                                        <ImageWrapper ref={lastPhotoElementRef} key={ind} img={img} />
                                     )
                                     :
                                     (
-                                    <Box key={ind} width="100%" display="block">
-                                        <Image src={img.previewURL} width="100%" height="100%" rounded="lg"/>
-                                    </Box>
+                                        <ImageWrapper key={ind} img={img} />
                                     )
 
                                 ))
                             
+                            }
+                            {
+                                hasMore && loading &&
+                                [...Array(20).keys()].map(ind => {
+                                    return (
+                                        <Box key={ind} padding="2">
+                                            <Skeleton height={200} />
+                                            <SkeletonText mt={3} noOfLines={2} />
+                                        </Box>
+                                    )
+                                })
                             }
                         </Masonry>
                     </ResponsiveMasonry>
